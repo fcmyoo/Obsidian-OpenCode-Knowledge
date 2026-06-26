@@ -14,6 +14,10 @@
 # Node
 node_modules/
 
+# Python
+__pycache__/
+*.py[cod]
+
 # Editor
 *.swp
 *.swo
@@ -28,3 +32,6 @@ raw/*
 
 # Logs
 *.log
+
+# Runtime artifacts
+tmp-live-vault/
