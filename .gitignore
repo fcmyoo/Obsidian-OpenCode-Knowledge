@@ -35,3 +35,14 @@ raw/*
 
 # Runtime artifacts
 tmp-live-vault/
+.codebase-memory/
+.opencode/node_modules/
+reasonix.toml
+
+# Spec workflow generated files
+.spec-workflow/approvals/
+.spec-workflow/archive/
+
+# Generated helper scripts
+scripts/check-env.sh
+scripts/CLAUDE.md
