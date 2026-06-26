@@ -17,14 +17,12 @@
 ### Fixed
 - Fixed PowerShell installer path resolution and dry-run behavior
 
-## 阻塞
+## 状态
 
-- 推送被网络/代理阻断：`Failed to connect to github.com port 443 via 127.0.0.1`
-- 待恢复后执行：`git push origin main`
+- 已推送 `main` 到远程：`fc38d6d`
 
 ## 待做
 
-- [ ] 恢复网络后推送 `main`
+- [ ] 创建 release
 - [ ] 监控 GitHub Actions
-- [ ] 打 release
 - [ ] 继续补充工具模板可执行示例
