@@ -284,6 +284,8 @@ cd ~/Desktop/deploy && bash scripts/opencode-obsidian-doctor.sh --vault "$HOME/D
         └── opencli-oneshot/  # 单点快速 CLI 生成
 ```
 
+部署后若想继续优化知识库流程与质量，可参考 [`docs/knowledge-workflow.md`](docs/knowledge-workflow.md)、[`docs/knowledge-maintenance.md`](docs/knowledge-maintenance.md)、[`docs/quality-metrics.md`](docs/quality-metrics.md)、[`docs/git-policy.md`](docs/git-policy.md)、[`docs/plugin-recommendations.md`](docs/plugin-recommendations.md)、[`docs/privacy-and-security.md`](docs/privacy-and-security.md)。
+
 ---
 
 ## 进阶：可选增强功能

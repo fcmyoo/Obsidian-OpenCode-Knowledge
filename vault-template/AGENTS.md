@@ -253,3 +253,13 @@ tags: []
 - md 文件**命名自由**，不强制 `YYYY-MM-DD-slug.md` 格式。
 - 不强制 Sources/Raw/Updated metadata 处。想加就加，不加也行。
 - raw 里的文件（PDF/视频/xlsx/图片）**永不改名**。
+
+## Project KB（跨 agent 项目知识）
+
+当任务涉及项目架构、长期任务上下文、历史决策、模块边界或已知坑点时，使用 `.opencode/skill/project-kb/SKILL.md`。
+
+- 先查当前代码、测试和仓库文档，再信任 Obsidian 项目笔记。
+- 如果项目笔记与当前代码或验证输出冲突，以当前代码和验证输出为准，并指出可能过期的 note path。
+- 默认读取流程：解析项目 → 读 `hot.md` → 搜索相关笔记 → 最多读取 5 条命中。
+- 默认写入流程：只有验证后才 append task log。
+- 不暴露 delete、full overwrite、batch move、batch rename、vault-wide rewrite 作为普通 agent 操作。

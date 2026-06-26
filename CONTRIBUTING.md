@@ -78,7 +78,7 @@ We provide a `setup.sh` script for quick environment verification:
 
 ```bash
 # 克隆仓库 / Clone the repository
-git clone https://github.com/zxfccmm4/Obsidian-OpenCode-Knowledge.git
+git clone https://github.com/fcmyoo/Obsidian-OpenCode-Knowledge.git
 cd Obsidian-OpenCode-Knowledge
 
 # 运行测试脚本 / Run the test script

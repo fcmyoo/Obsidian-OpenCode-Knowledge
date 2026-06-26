@@ -63,7 +63,7 @@ ls /Applications/Obsidian.app 2>/dev/null && echo "installed" || echo "not insta
 ## 第 2 步：克隆仓库
 
 ```bash
-git clone https://github.com/zxfccmm4/Obsidian-OpenCode-Knowledge.git ~/Desktop/Obsidian-OpenCode-Knowledge
+git clone https://github.com/fcmyoo/Obsidian-OpenCode-Knowledge.git ~/Desktop/Obsidian-OpenCode-Knowledge
 ```
 
 如果用户希望放在其他位置，替换路径即可。
@@ -362,6 +362,6 @@ Obsidian-OpenCode-Knowledge/
 
 ## 项目链接
 
-- **GitHub 仓库：** https://github.com/zxfccmm4/Obsidian-OpenCode-Knowledge
-- **原始部署脚本：** https://github.com/zxfccmm4/Obsidian-OpenCode-Knowledge/blob/main/setup.sh
-- **本文档直链：** https://github.com/zxfccmm4/Obsidian-OpenCode-Knowledge/blob/main/GUIDE_FOR_AI.md
+- **GitHub 仓库：** https://github.com/fcmyoo/Obsidian-OpenCode-Knowledge
+- **原始部署脚本：** https://github.com/fcmyoo/Obsidian-OpenCode-Knowledge/blob/main/setup.sh
+- **本文档直链：** https://github.com/fcmyoo/Obsidian-OpenCode-Knowledge/blob/main/GUIDE_FOR_AI.md
