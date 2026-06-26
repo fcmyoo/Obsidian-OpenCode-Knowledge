@@ -4,8 +4,10 @@
 
 > 面向非技术用户的本地 AI 知识管理方案。无需编程，一键部署，开箱即用。
 
+> **发布状态:** `Project KB preview` 已晋级到 `v0.2-beta`：当前 Windows 主机上的 Obsidian CLI、Local REST 和 transport smoke 已 live verified。`project-kb-full` 与仓库整体 `repo-wide` 终端用户发布仍受 10-task pilot 阻塞；Claude Code、OpenCode、OpenClaw、Canvas/Base 渲染等未 live 验证能力仍按 release gate 标为 blocked、repo-local verified 或 draft only。
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/zxfccmm4/Obsidian-OpenCode-Knowledge?style=social)](https://github.com/zxfccmm4/Obsidian-OpenCode-Knowledge/stargazers)
+[![GitHub stars](https://img.shields.io/github/stars/fcmyoo/Obsidian-OpenCode-Knowledge?style=social)](https://github.com/fcmyoo/Obsidian-OpenCode-Knowledge/stargazers)
 [![OpenCode](https://img.shields.io/badge/Powered%20by-OpenCode-blue)](https://opencode.ai)
 
 ---
@@ -30,7 +32,7 @@
 把下面这句话发给任何 AI 助手（ChatGPT、Claude、GLM 等），它会自动帮你完成全部部署：
 
 ```
-请帮我部署 AI 知识库：https://github.com/zxfccmm4/Obsidian-OpenCode-Knowledge/blob/main/GUIDE_FOR_AI.md
+请帮我部署 AI 知识库：https://github.com/fcmyoo/Obsidian-OpenCode-Knowledge/blob/main/GUIDE_FOR_AI.md
 ```
 
 > 📖 AI 助手会读取 [`GUIDE_FOR_AI.md`](GUIDE_FOR_AI.md) 中的完整部署流程，自动完成环境检查、安装、配置。
@@ -39,8 +41,8 @@
 
 ```bash
 # 第 1 步：克隆仓库
-git clone https://github.com/zxfccmm4/Obsidian-OpenCode-Knowledge.git
-cd Obsidian-OpenCode-Knowledge/deploy
+git clone https://github.com/fcmyoo/Obsidian-OpenCode-Knowledge.git
+cd Obsidian-OpenCode-Knowledge
 
 # 第 2 步：运行安装脚本（macOS）
 bash setup.sh
@@ -50,26 +52,20 @@ bash setup.sh
 
 > 📖 详细步骤请参考 [`deployment-guide.md`](deployment-guide.md)
 
+### 环境检查
+
+在运行脚本前，建议先确认：
+
+```bash
+node --version
+npm --version
+```
+
+macOS 安装脚本依赖：`bash`、`npm`、`cp`、`find`、`kill`。
+
 ---
 
 ## 🏗️ 架构概览
-
-这套方案由三个组件协同工作：
-
-```
-┌─────────────────────────────────────────────────────────┐
-│  ┌─────────────┐    ┌─────────────┐    ┌─────────────┐ │
-│  │   Obsidian  │◄──►│  OpenCode   │◄──►│  知识库规则 │ │
-│  │  (笔记软件)  │    │  (AI 助手)  │    │ (AGENTS.md) │ │
-│  └─────────────┘    └─────────────┘    └─────────────┘ │
-└─────────────────────────────────────────────────────────┘
-```
-
-| 组件 | 作用 | 对你意味着什么 |
-|------|------|----------------|
-| **Obsidian** | 本地笔记软件 | 像用普通笔记本一样写笔记 |
-| **OpenCode** | AI 大模型接口 | 在 Obsidian 里和 AI 对话 |
-| **知识库规则** | AI 行为指南 | AI 知道怎么帮你整理、查询、体检 |
 
 ---
 
@@ -108,6 +104,21 @@ bash setup.sh
         ├── opencli-explorer/ # 适配器开发指南
         └── opencli-oneshot/  # 单点快速 CLI 生成
 ```
+
+更多知识库运维与优化建议，见 [`docs/knowledge-workflow.md`](docs/knowledge-workflow.md)、[`docs/knowledge-maintenance.md`](docs/knowledge-maintenance.md)、[`docs/quality-metrics.md`](docs/quality-metrics.md)、[`docs/git-policy.md`](docs/git-policy.md)、[`docs/plugin-recommendations.md`](docs/plugin-recommendations.md)、[`docs/privacy-and-security.md`](docs/privacy-and-security.md)、[`docs/ai-tools-integration.md`](docs/ai-tools-integration.md)。
+
+### 非交互安装
+
+```bash
+bash scripts/installer/install.sh \
+  --vault "$HOME/Desktop/我的知识库" \
+  --provider deepseek \
+  --api-key "$DEEPSEEK_KEY"
+```
+
+可选参数：
+- `--skip-plugin`
+- `--dry-run`
 
 ---
 
@@ -190,6 +201,25 @@ AI 会检查：
 
 ---
 
+## 🧪 CI / 质量检查
+
+本仓库提供知识库质量检查脚本，便于在本地或 CI 中验证 vault 健康度：
+
+- 脚本：`scripts/kb-lint-check.sh`
+- Windows 脚本：`scripts/kb-lint-check.ps1`
+- 测试：`python -m unittest tests.test_kb_lint_check -v`
+- GitHub Actions：`.github/workflows/kb-lint.yml`
+- 用法说明：[`docs/kb-lint-usage.md`](docs/kb-lint-usage.md)
+- JSON 输出格式：[`docs/kb-lint-json-schema.md`](docs/kb-lint-json-schema.md)
+
+示例：
+
+```bash
+bash scripts/kb-lint-check.sh "$HOME/Desktop/我的知识库"
+```
+
+---
+
 ## 🔧 高级选项（可选）
 
 基础版已经能用了。以下功能按需添加，只需在 OpenCode 里一句话安装：
@@ -201,6 +231,33 @@ AI 会检查：
 | 📊 Excel 读取 | `安装 minimax-xlsx 技能` | 读取 Excel 数据 |
 | 🎨 PPT 生成 | `安装 pptx-generator 技能` | 把笔记变成演示文稿 |
 | 🖼️ 图片分析 | `安装 vision-analysis 技能` | 分析图片和截图 |
+
+---
+
+## 🧩 Project KB CLI（跨 Agent 项目知识）
+
+本仓库现在包含一个 P0 Project KB CLI，用于把项目架构、长期任务上下文、ADR、模块说明和任务日志保存在可审计的 Obsidian vault 中，供 Codex、Claude Code、OpenClaw、OpenCode 和通用 CLI agent 共享。
+
+```powershell
+python scripts/kb.py init-project --name WeFlow --repo H:\code\github\WeFlow
+python scripts/kb.py search --project WeFlow --query "diagnostics architecture" --limit 5
+python scripts/kb.py validate --project WeFlow
+```
+
+详细命令见 [`docs/project-kb/cli.md`](docs/project-kb/cli.md)，adapter 规则见 [`docs/project-kb/agent-adapters.md`](docs/project-kb/agent-adapters.md)。
+
+---
+
+## 📚 知识库使用与运维文档
+
+这些文档帮助你把知识库从“能用”推进到“可持续维护”：
+
+- [raw → wiki 工作流](docs/knowledge-workflow.md)
+- [维护节奏](docs/knowledge-maintenance.md)
+- [Git 规范](docs/git-policy.md)
+- [质量指标](docs/quality-metrics.md)
+- [插件建议](docs/plugin-recommendations.md)
+- [隐私与安全边界](docs/privacy-and-security.md)
 
 ---
 

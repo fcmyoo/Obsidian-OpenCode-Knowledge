@@ -1,0 +1,48 @@
+name: Knowledge Base Lint
+
+on:
+  push:
+    paths:
+      - 'vault-template/**'
+      - 'docs/**'
+      - 'scripts/kb-lint-check.sh'
+      - 'scripts/kb-lint-check.ps1'
+      - 'tests/test_kb_lint_check.py'
+      - 'tests/test_kb_lint_check.ps1'
+      - '.github/workflows/kb-lint.yml'
+  pull_request:
+
+jobs:
+  kb-lint-bash:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run KB lint script
+        run: |
+          set -o pipefail
+          bash scripts/kb-lint-check.sh "$GITHUB_WORKSPACE/vault-template" | tee kb-lint-report.txt
+      - name: Upload KB lint report
+        uses: actions/upload-artifact@v4
+        with:
+          name: kb-lint-report
+          path: kb-lint-report.txt
+          retention-days: 14
+      - name: Run KB lint tests
+        run: python -m unittest tests.test_kb_lint_check -v
+
+  kb-lint-powershell:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Run KB lint PowerShell script
+        run: |
+          powershell -ExecutionPolicy Bypass -File scripts/kb-lint-check.ps1 -VaultPath "$GITHUB_WORKSPACE/vault-template" -JsonMode 1 | Tee-Object -FilePath kb-lint-report-powershell.json
+      - name: Upload KB lint PowerShell report
+        uses: actions/upload-artifact@v4
+        with:
+          name: kb-lint-report-powershell
+          path: kb-lint-report-powershell.json
+          retention-days: 14
+      - name: Run KB lint PowerShell tests
+        shell: pwsh
+        run: powershell -ExecutionPolicy Bypass -File tests/test_kb_lint_check.ps1

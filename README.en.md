@@ -4,8 +4,10 @@
 
 > A local AI knowledge management solution for non-technical users. No coding required, one-click deployment, ready to use out of the box.
 
+> **Release Status:** `Project KB preview` has advanced to `v0.2-beta`: Obsidian CLI, Local REST, and the transport smoke are live verified on the current Windows host. `project-kb-full` and the whole-repository `repo-wide` end-user release remain blocked by the 10-task pilot; Claude Code, OpenCode, OpenClaw, and Canvas/Base rendering capabilities without live evidence remain marked as blocked, repo-local verified, or draft only.
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/zxfccmm4/Obsidian-OpenCode-Knowledge?style=social)](https://github.com/zxfccmm4/Obsidian-OpenCode-Knowledge/stargazers)
+[![GitHub stars](https://img.shields.io/github/stars/fcmyoo/Obsidian-OpenCode-Knowledge?style=social)](https://github.com/fcmyoo/Obsidian-OpenCode-Knowledge/stargazers)
 [![OpenCode](https://img.shields.io/badge/Powered%20by-OpenCode-blue)](https://opencode.ai)
 
 > **Note:** This project was originally designed for Chinese users, but international users are welcome! The interface and documentation can be adapted for English usage.
@@ -32,7 +34,7 @@
 Send this message to any AI assistant (ChatGPT, Claude, GLM, etc.) and it will handle the entire deployment automatically:
 
 ```
-Deploy an AI knowledge base for me: https://github.com/zxfccmm4/Obsidian-OpenCode-Knowledge/blob/main/GUIDE_FOR_AI.md
+Deploy an AI knowledge base for me: https://github.com/fcmyoo/Obsidian-OpenCode-Knowledge/blob/main/GUIDE_FOR_AI.md
 ```
 
 > 📖 The AI assistant will read [`GUIDE_FOR_AI.md`](GUIDE_FOR_AI.md) for the complete deployment procedure, including environment checks, installation, and configuration.
@@ -41,8 +43,8 @@ Deploy an AI knowledge base for me: https://github.com/zxfccmm4/Obsidian-OpenCod
 
 ```bash
 # Step 1: Clone the repository
-git clone https://github.com/zxfccmm4/Obsidian-OpenCode-Knowledge.git
-cd Obsidian-OpenCode-Knowledge/deploy
+git clone https://github.com/fcmyoo/Obsidian-OpenCode-Knowledge.git
+cd Obsidian-OpenCode-Knowledge
 
 # Step 2: Run the setup script (macOS)
 bash setup.sh
@@ -51,6 +53,19 @@ bash setup.sh
 ```
 
 > 📖 For detailed steps, see [`deployment-guide.md`](deployment-guide.md) (Chinese deployment guide)
+
+### Environment check
+
+Before running the script, verify your environment:
+
+```bash
+node --version
+npm --version
+```
+
+Expected:
+- macOS with `bash`, `npm`, `cp`, `find`, and `kill` available
+- `node` and `npm` installed and on `PATH`
 
 ### What `setup.sh` Does
 
@@ -121,6 +136,8 @@ My Knowledge Base/
         ├── opencli-explorer/ # Adapter development guide
         └── opencli-oneshot/  # Quick CLI generation
 ```
+
+For more operational guidance, see [`docs/knowledge-workflow.md`](docs/knowledge-workflow.md), [`docs/knowledge-maintenance.md`](docs/knowledge-maintenance.md), [`docs/quality-metrics.md`](docs/quality-metrics.md), [`docs/git-policy.md`](docs/git-policy.md), [`docs/plugin-recommendations.md`](docs/plugin-recommendations.md), [`docs/privacy-and-security.md`](docs/privacy-and-security.md), and [`docs/ai-tools-integration.md`](docs/ai-tools-integration.md).
 
 ### Pre-installed Skills
 
@@ -219,6 +236,25 @@ AI will check:
 
 ---
 
+## 🧪 CI / Quality Checks
+
+This repo includes knowledge base lint tooling for local or CI validation:
+
+- Bash script: `scripts/kb-lint-check.sh`
+- PowerShell script: `scripts/kb-lint-check.ps1`
+- Tests: `python -m unittest tests.test_kb_lint_check -v`
+- GitHub Actions: `.github/workflows/kb-lint.yml`
+- Usage notes: [`docs/kb-lint-usage.md`](docs/kb-lint-usage.md)
+- JSON schema: [`docs/kb-lint-json-schema.md`](docs/kb-lint-json-schema.md)
+
+Example:
+
+```bash
+bash scripts/kb-lint-check.sh "$HOME/Desktop/my-knowledge-base"
+```
+
+---
+
 ## 🔧 Advanced Options (Optional)
 
 The basic version works great. Add these features on demand by simply telling OpenCode to install them:
@@ -230,6 +266,33 @@ The basic version works great. Add these features on demand by simply telling Op
 | 📊 Excel Reading | "Install minimax-xlsx skill" | Read Excel data |
 | 🎨 PPT Generation | "Install pptx-generator skill" | Turn notes into presentations |
 | 🖼️ Image Analysis | "Install vision-analysis skill" | Analyze images and screenshots |
+
+---
+
+## 📚 Knowledge Base Usage and Operations Docs
+
+These docs help you move from "it works" to "sustainably maintainable":
+
+- [raw → wiki workflow](docs/knowledge-workflow.md)
+- [Maintenance cadence](docs/knowledge-maintenance.md)
+- [Git policy](docs/git-policy.md)
+- [Quality metrics](docs/quality-metrics.md)
+- [Plugin recommendations](docs/plugin-recommendations.md)
+- [Privacy and security](docs/privacy-and-security.md)
+- [AI tools integration](docs/ai-tools-integration.md)
+
+### Non-interactive installer
+
+```bash
+bash scripts/installer/install.sh \
+  --vault "$HOME/Desktop/my-knowledge-base" \
+  --provider deepseek \
+  --api-key "$DEEPSEEK_KEY"
+```
+
+Options:
+- `--skip-plugin`
+- `--dry-run`
 
 ---
 

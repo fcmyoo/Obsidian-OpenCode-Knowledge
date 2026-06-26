@@ -1,0 +1,10 @@
+# Project KB MCP draft for this repository.
+# Review against the current Codex config documentation before copying fields into a user/global config.
+
+[mcp_servers.project-kb]
+command = "python"
+args = ["scripts/kb_mcp.py"]
+startup_timeout_sec = 30
+
+[mcp_servers.project-kb.env]
+PROJECT_KB_VAULT = "tmp-live-vault"

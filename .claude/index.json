@@ -1,0 +1,180 @@
+{
+  "timestamp": "2026-06-24T00:00:00.000Z",
+  "scan_type": "full",
+  "coverage": {
+    "estimated_total_files": 48,
+    "scanned_files": 45,
+    "coverage_percent": 94,
+    "ignored_files": 3,
+    "ignored_reason": "大文件/二进制: .git/objects/pack/*.pack, node_modules/ (未安装)"
+  },
+  "modules": [
+    {
+      "path": "vault-template/",
+      "type": "template",
+      "language": "markdown",
+      "entry_files": ["AGENTS.md", "AI_CONFIG.md"],
+      "interfaces": ["Ingest", "Query", "Lint", "Social Ingest"],
+      "tests_exist": false,
+      "config_exist": true,
+      "coverage_summary": "核心 vault 模板，包含 AI 规则、配置、wiki 目录结构"
+    },
+    {
+      "path": ".spec-workflow/",
+      "type": "templates",
+      "language": "markdown",
+      "entry_files": ["templates/*.md"],
+      "interfaces": [],
+      "tests_exist": false,
+      "config_exist": false,
+      "coverage_summary": "6个规格文档模板"
+    },
+    {
+      "path": "scripts/",
+      "type": "scripts",
+      "language": "bash",
+      "entry_files": ["opencode-obsidian-doctor.sh"],
+      "interfaces": [],
+      "tests_exist": false,
+      "config_exist": false,
+      "coverage_summary": "部署诊断脚本"
+    },
+    {
+      "path": ".claude/skills/project-kb/",
+      "type": "skill",
+      "language": "markdown",
+      "entry_files": ["SKILL.md"],
+      "interfaces": ["project find", "retrieve", "read hot cache", "append verified task log"],
+      "tests_exist": false,
+      "config_exist": false,
+      "coverage_summary": "Repo-local Claude Project KB workflow skill"
+    },
+    {
+      "path": ".claude/commands/",
+      "type": "commands",
+      "language": "markdown",
+      "entry_files": ["wiki.md"],
+      "interfaces": ["resolve project kb context"],
+      "tests_exist": false,
+      "config_exist": false,
+      "coverage_summary": "Repo-local Claude convenience command for Project KB context"
+    },
+    {
+      "path": "vault-template/.opencode/skill/defuddle/",
+      "type": "skill",
+      "language": "markdown",
+      "entry_files": ["SKILL.md"],
+      "interfaces": ["defuddle parse"],
+      "tests_exist": false,
+      "config_exist": false,
+      "coverage_summary": "网页内容提取技能"
+    },
+    {
+      "path": "vault-template/.opencode/skill/obsidian-cli/",
+      "type": "skill",
+      "language": "markdown",
+      "entry_files": ["SKILL.md"],
+      "interfaces": ["obsidian read/create/search/daily/property/tasks/tags/backlinks"],
+      "tests_exist": false,
+      "config_exist": false,
+      "coverage_summary": "Obsidian CLI 操作技能"
+    },
+    {
+      "path": "vault-template/.opencode/skill/obsidian-markdown/",
+      "type": "skill",
+      "language": "markdown",
+      "entry_files": ["SKILL.md"],
+      "interfaces": ["Wikilinks", "Embeds", "Callouts", "Properties", "Tags", "Mermaid"],
+      "tests_exist": false,
+      "config_exist": false,
+      "coverage_summary": "Obsidian Flavored Markdown 语法技能"
+    },
+    {
+      "path": "vault-template/.opencode/skill/opencli-usage/",
+      "type": "skill",
+      "language": "markdown",
+      "entry_files": ["SKILL.md"],
+      "interfaces": ["87+ 适配器命令"],
+      "tests_exist": false,
+      "config_exist": false,
+      "coverage_summary": "OpenCLI 命令参考（87+ 适配器）"
+    },
+    {
+      "path": "vault-template/.opencode/skill/smart-search/",
+      "type": "skill",
+      "language": "markdown",
+      "entry_files": ["SKILL.md"],
+      "interfaces": ["智能搜索路由"],
+      "tests_exist": false,
+      "config_exist": false,
+      "coverage_summary": "智能搜索路由器"
+    },
+    {
+      "path": "vault-template/.opencode/skill/opencli-browser/",
+      "type": "skill",
+      "language": "markdown",
+      "entry_files": ["SKILL.md"],
+      "interfaces": ["browser open/state/click/type/eval/network"],
+      "tests_exist": false,
+      "config_exist": false,
+      "coverage_summary": "浏览器自动化技能"
+    },
+    {
+      "path": "vault-template/.opencode/skill/opencli-autofix/",
+      "type": "skill",
+      "language": "markdown",
+      "entry_files": ["SKILL.md"],
+      "interfaces": ["适配器自动修复流程"],
+      "tests_exist": false,
+      "config_exist": false,
+      "coverage_summary": "适配器自动修复技能"
+    },
+    {
+      "path": "vault-template/.opencode/skill/opencli-explorer/",
+      "type": "skill",
+      "language": "markdown",
+      "entry_files": ["SKILL.md"],
+      "interfaces": ["API发现、认证策略选择、适配器编写"],
+      "tests_exist": false,
+      "config_exist": false,
+      "coverage_summary": "适配器探索式开发指南"
+    },
+    {
+      "path": "vault-template/.opencode/skill/opencli-oneshot/",
+      "type": "skill",
+      "language": "markdown",
+      "entry_files": ["SKILL.md"],
+      "interfaces": ["4步快速CLI生成"],
+      "tests_exist": false,
+      "config_exist": false,
+      "coverage_summary": "单点快速CLI生成技能"
+    }
+  ],
+  "gaps": [
+    {
+      "module": "vault-template/.opencode/skill/obsidian-markdown/",
+      "gap": "references/ 目录下的子文件未读取",
+      "recommendation": "如需深度了解 Properties/Embeds/Callouts 细节，可读取 references/ 下的 MD 文件"
+    },
+    {
+      "module": "setup.sh",
+      "gap": "部署脚本核心逻辑已扫描，但未实际执行测试",
+      "recommendation": "实际部署环境测试"
+    }
+  ],
+  "ignored_patterns": [
+    ".git/**",
+    "node_modules/**",
+    ".vscode/**",
+    ".idea/**",
+    "*.log",
+    "raw/*",
+    "!vault-template/raw/.gitkeep"
+  ],
+  "truncated": false,
+  "next_recommendations": [
+    "如需深度了解 obsidian-markdown 技能，可读取 vault-template/.opencode/skill/obsidian-markdown/references/ 目录",
+    "如需自定义部署行为，可研究 setup.sh 脚本逻辑",
+    "本项目为文档/模板性质，无传统代码测试需求"
+  ]
+}

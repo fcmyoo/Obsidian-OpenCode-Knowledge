@@ -1,0 +1,32 @@
+name: Knowledge Base Quality Check
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  kb-quality-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up test vault
+        run: |
+          mkdir -p "${{ github.workspace }}/tmp-quality-vault/wiki"
+          cp README.md "${{ github.workspace }}/tmp-quality-vault/wiki/README.md"
+          cp README.en.md "${{ github.workspace }}/tmp-quality-vault/wiki/README.en.md"
+          cat > "${{ github.workspace }}/tmp-quality-vault/wiki/index.md" <<'EOF'
+          # Index
+          - [README](README.md)
+          - [README](README.en.md)
+          EOF
+
+      - name: Run quality check
+        run: bash scripts/kb-quality-check.sh "${{ github.workspace }}/tmp-quality-vault"
+
+      - name: Cleanup
+        run: rm -rf "${{ github.workspace }}/tmp-quality-vault"
