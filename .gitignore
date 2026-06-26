@@ -36,7 +36,9 @@ raw/*
 # Runtime artifacts
 tmp-live-vault/
 .codebase-memory/
-.opencode/node_modules/
+.opencode/
+.project-kb/
+.spec-workflow/
 reasonix.toml
 
 # Spec workflow generated files
