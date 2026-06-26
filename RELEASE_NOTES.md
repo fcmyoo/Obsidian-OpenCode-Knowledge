@@ -17,12 +17,7 @@
 ### Fixed
 - Fixed PowerShell installer path resolution and dry-run behavior
 
-## 状态
 
-- 已推送 `main` 到远程：`fc38d6d`
-
-## 待做
-
-- [ ] 创建 release
+- [x] 创建 release
 - [ ] 监控 GitHub Actions
 - [ ] 继续补充工具模板可执行示例
