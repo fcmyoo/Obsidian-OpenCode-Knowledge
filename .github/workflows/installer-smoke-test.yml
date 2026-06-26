@@ -20,7 +20,7 @@ jobs:
           node-version: 20
 
       - name: Run installer dry-run
-        run: bash scripts/installer/install.sh --vault "${{ github.workspace }}/tmp-install-smoke" --provider deepseek --api-key "test-key" --skip-plugin --dry-run
+        run: bash scripts/installer/install.sh --vault "${{ github.workspace }}/tmp-install-smoke" --provider deepseek --api-key "test-key" --skip-plugin
 
       - name: Verify vault template copied
         run: test -d "${{ github.workspace }}/tmp-install-smoke/wiki"
