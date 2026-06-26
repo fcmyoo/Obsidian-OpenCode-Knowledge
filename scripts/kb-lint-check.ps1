@@ -3,7 +3,7 @@
 # 适用于 Windows
 # ============================================================
 param(
-    [string]$VaultPath = "$env:USERPROFILE\Desktop\我的知识库",
+    [string]$VaultPath = '.\vault-template',
     [string]$JsonMode = "0"
 )
 
