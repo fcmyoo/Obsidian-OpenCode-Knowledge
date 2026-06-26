@@ -16,16 +16,28 @@ json_checks="[]"
 json_warnings="[]"
 json_errors="[]"
 json_append() {
-  json_checks=$(printf '%s\n%s' "$json_checks" "$1" | jq -s '.[0] + .[1]')
+  if [[ "$json_checks" == "[]" ]]; then
+    json_checks="[$1]"
+  else
+    json_checks=$(printf '%s\n%s' "$json_checks" "$1" | jq -s '.[0] + .[1]')
+  fi
 }
 json_warn() {
-  json_warnings=$(printf '%s\n%s' "$json_warnings" "$2" | jq -s '.[0] + .[1]')
+  if [[ "$json_warnings" == "[]" ]]; then
+    json_warnings="[$2]"
+  else
+    json_warnings=$(printf '%s\n%s' "$json_warnings" "$2" | jq -s '.[0] + .[1]')
+  fi
   if [[ "$JSON_MODE" != "1" ]]; then
     warn "$1"
   fi
 }
 json_err() {
-  json_errors=$(printf '%s\n%s' "$json_errors" "$2" | jq -s '.[0] + .[1]')
+  if [[ "$json_errors" == "[]" ]]; then
+    json_errors="[$2]"
+  else
+    json_errors=$(printf '%s\n%s' "$json_errors" "$2" | jq -s '.[0] + .[1]')
+  fi
   if [[ "$JSON_MODE" != "1" ]]; then
     err "$1"
   fi
