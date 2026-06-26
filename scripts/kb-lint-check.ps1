@@ -3,9 +3,13 @@
 # 适用于 Windows
 # ============================================================
 param(
-    [string]$VaultPath = '.\vault-template',
+    [string]$VaultPath,
     [string]$JsonMode = "0"
 )
+
+if (-not $VaultPath) {
+    $VaultPath = Join-Path (Get-Location) 'vault-template'
+}
 
 $ErrorActionPreference = "Continue"
 

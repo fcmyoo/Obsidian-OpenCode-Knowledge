@@ -35,8 +35,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Run KB lint PowerShell script
-        run: |
-          powershell -ExecutionPolicy Bypass -File scripts/kb-lint-check.ps1 -VaultPath "$GITHUB_WORKSPACE/vault-template" -JsonMode 1 | Tee-Object -FilePath kb-lint-report-powershell.json
+        shell: pwsh
+        run: powershell -ExecutionPolicy Bypass -File scripts/kb-lint-check.ps1 -VaultPath "$env:GITHUB_WORKSPACE/vault-template" -JsonMode 1 | Tee-Object -FilePath kb-lint-report-powershell.json
       - name: Upload KB lint PowerShell report
         uses: actions/upload-artifact@v4
         with:
