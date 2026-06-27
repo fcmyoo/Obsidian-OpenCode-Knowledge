@@ -156,7 +156,11 @@ foreach ($file in $wikiFiles) {
         $tags = $tagText -split ',' | ForEach-Object { $_.Trim().Trim('"') }
         foreach ($tag in $tags) {
             if ([string]::IsNullOrWhiteSpace($tag)) { continue }
-            $tagCount[$tag] = ($tagCount[$tag] ?? 0) + 1
+            if ($tagCount[$tag] -eq $null) {
+                $tagCount[$tag] = 1
+            } else {
+                $tagCount[$tag] = $tagCount[$tag] + 1
+            }
         }
     }
 }
