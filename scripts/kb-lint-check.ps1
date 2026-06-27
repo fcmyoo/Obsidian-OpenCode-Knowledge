@@ -66,7 +66,7 @@ foreach ($file in $wikiFiles) {
             $resolved = Join-Path $VaultPath $link
         } elseif ($link -like '../*') {
             $relative = $link -replace '^\.\./', ''
-            $resolved = Join-Path $file.Directory.FullName $relative
+            $resolved = Join-Path (Split-Path -Parent $file.Directory.FullName) $relative
         } else {
             $resolved = Join-Path $file.Directory.FullName $link
         }
