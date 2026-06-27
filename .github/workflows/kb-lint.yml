@@ -11,6 +11,7 @@ on:
       - 'tests/test_kb_lint_check.ps1'
       - '.github/workflows/kb-lint.yml'
   pull_request:
+  workflow_call:
 
 jobs:
   kb-lint-bash:
