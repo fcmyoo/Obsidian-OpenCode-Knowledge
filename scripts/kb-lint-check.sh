@@ -94,7 +94,13 @@ for f in "${wiki_files[@]}"; do
         resolved="$VAULT_DIR/$link"
         ;;
       ../*)
-        resolved="$VAULT_DIR/$dir/${link#../}"
+        resolved="$VAULT_DIR"
+        rel="${link#../}"
+        while [[ "$rel" == ../* ]]; do
+          resolved="${resolved%/*}"
+          rel="${rel#../}"
+        done
+        resolved="$resolved/$rel"
         ;;
       *)
         resolved="$VAULT_DIR/$dir/$link"
@@ -151,9 +157,21 @@ while IFS= read -r f; do
   while IFS= read -r rel; do
     [[ -z "$rel" ]] && continue
     rel="${rel#/}"
-    [[ "$rel" != ../../raw/* ]] && continue
+    [[ "$rel" != *raw/* ]] && continue
     raw_links=$((raw_links + 1))
-    if [[ ! -f "$VAULT_DIR/$rel" ]]; then
+    resolved="$VAULT_DIR"
+    case "$rel" in
+      /*)
+        resolved="$rel"
+        ;;
+      ../*)
+        resolved="$VAULT_DIR/${rel#../}"
+        ;;
+      *)
+        resolved="$VAULT_DIR/$dir/$rel"
+        ;;
+    esac
+    if [[ ! -f "$resolved" ]]; then
       warn "missing raw source in $base: $rel"
       missing_raw=$((missing_raw + 1))
     fi

@@ -34,17 +34,17 @@ class KbLintCheckTests(unittest.TestCase):
             wiki.mkdir(parents=True)
             (wiki / "index.md").write_text(
                 "---\ntitle: Index\nsource: local\ncreated: 2026-01-01\ndomain: wiki\n---\n"
-                "- [Topic](../../wiki/Topic.md)\n- [Related](../../wiki/Related.md)\n",
+                "- [Topic](Topic.md)\n- [Related](Related.md)\n",
                 encoding="utf-8",
             )
             (wiki / "Topic.md").write_text(
                 "---\ntitle: Topic\nsource: local\ncreated: 2026-01-01\ndomain: wiki\n---\n"
-                "# Topic\nSee [Related](../../wiki/Related.md).\n",
+                "# Topic\nSee [Related](Related.md).\n",
                 encoding="utf-8",
             )
             (wiki / "Related.md").write_text(
                 "---\ntitle: Related\nsource: local\ncreated: 2026-01-01\ndomain: wiki\n---\n"
-                "# Related\nSee [Topic](../../wiki/Topic.md).\n",
+                "# Related\nSee [Topic](Topic.md).\n",
                 encoding="utf-8",
             )
             (wiki / "log.md").write_text("", encoding="utf-8")
