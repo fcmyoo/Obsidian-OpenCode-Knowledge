@@ -28,6 +28,7 @@ class ProjectKbCliTests(unittest.TestCase):
         env["PROJECT_KB_OBSIDIAN_CLI_PATH"] = str(workspace / "missing-obsidian")
         env["PROJECT_KB_OBSIDIAN_REST_URL"] = "http://127.0.0.1:1/"
         env.pop("PROJECT_KB_OBSIDIAN_REST_API_KEY", None)
+        env.setdefault("PYTHONUTF8", "1")
         result = subprocess.run(
             [sys.executable, str(KB), *args],
             cwd=ROOT,
