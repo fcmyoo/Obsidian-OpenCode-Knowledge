@@ -12,22 +12,39 @@ err() { printf '[ERR] %s\n' "$1"; }
 hr() { printf '\n== %s ==\n' "$1"; }
 
 exit_code=0
-json_checks="[]"
-json_warnings="[]"
-json_errors="[]"
+json_checks=""
+json_warnings=""
+json_errors=""
 json_append() {
-  json_checks=$(printf '%s\n%s' "$json_checks" "$1" | jq -s '.[0] + [.[1]]')
+  local item="$1"
+  if [[ -z "$json_checks" ]]; then
+    json_checks="$item"
+  else
+    json_checks="$json_checks,$item"
+  fi
 }
 json_warn() {
-  json_warnings=$(printf '%s\n%s' "$json_warnings" "$2" | jq -s '.[0] + [.[1]]')
+  local msg="$1"
+  local item="$2"
+  if [[ -z "$json_warnings" ]]; then
+    json_warnings="$item"
+  else
+    json_warnings="$json_warnings,$item"
+  fi
   if [[ "$JSON_MODE" != "1" ]]; then
-    warn "$1"
+    warn "$msg"
   fi
 }
 json_err() {
-  json_errors=$(printf '%s\n%s' "$json_errors" "$2" | jq -s '.[0] + [.[1]]')
+  local msg="$1"
+  local item="$2"
+  if [[ -z "$json_errors" ]]; then
+    json_errors="$item"
+  else
+    json_errors="$json_errors,$item"
+  fi
   if [[ "$JSON_MODE" != "1" ]]; then
-    err "$1"
+    err "$msg"
   fi
   exit_code=1
 }
@@ -160,7 +177,7 @@ for f in "${wiki_files[@]}"; do
   total=$((total + 1))
   has_inlink=0
   has_outlink=0
-  if grep -qE '\]\(\.\.\/\.\.\/'"$base"'\)' "$INDEX_FILE" 2>/dev/null; then
+  if grep -qE '\]\((\.\.\/\.\.\/)?'"$base"'\)' "$INDEX_FILE" 2>/dev/null; then
     has_inlink=1
   fi
   if grep -qE '\]\([^)]*wiki\/[^)]*\.md\)' "$f" 2>/dev/null; then
@@ -234,7 +251,7 @@ else
 fi
 
 if [[ "$JSON_MODE" == "1" ]]; then
-  printf '{"vault":"%s","issues":%s,"warnings":%s,"errors":%s,"exitCode":%d}\n' \
+  printf '{"vault":"%s","issues":[%s],"warnings":[%s],"errors":[%s],"exitCode":%d}\n' \
     "$VAULT_DIR" "$json_checks" "$json_warnings" "$json_errors" "$exit_code"
 fi
 

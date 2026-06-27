@@ -13,9 +13,9 @@ if (-not $VaultPath) {
 
 $ErrorActionPreference = "Continue"
 
-function Write-OK { param($msg) Write-Host "[OK] $msg" -ForegroundColor Green }
-function Write-WARN { param($msg) Write-Host "[WARN] $msg" -ForegroundColor Yellow }
-function Write-ERR { param($msg) Write-Host "[ERR] $msg" -ForegroundColor Red }
+function Write-OK { param($msg) Write-Output "[OK] $msg" }
+function Write-WARN { param($msg) Write-Output "[WARN] $msg" }
+function Write-ERR { param($msg) Write-Output "[ERR] $msg" }
 function Write-Section { param($msg) Write-Host ""; Write-Host "== $msg ==" -ForegroundColor Cyan }
 
 $wikiDir = Join-Path $VaultPath "wiki"
@@ -121,8 +121,10 @@ foreach ($file in $wikiFiles) {
     if ($file.Name -eq 'log.md') { continue }
     $frontMatterTotal++
     $missingFields = @()
+    $fileContent = Get-Content -Path $file.FullName -Raw
     foreach ($field in $requiredFields) {
-        if ($content -notmatch "^\s*$field`: " ) {
+        $pattern = '(?m)^\s*' + $field + ': '
+        if ($fileContent -notmatch $pattern) {
             $missingFields += $field
         }
     }
