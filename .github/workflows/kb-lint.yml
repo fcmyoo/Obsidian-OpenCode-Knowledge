@@ -16,7 +16,6 @@ on:
 jobs:
   kb-lint-bash:
     runs-on: ubuntu-latest
-    continue-on-error: true
     steps:
       - uses: actions/checkout@v4
       - name: Run KB lint script
