@@ -1758,9 +1758,9 @@ class ProjectKb:
             if repo_path:
                 requested_path = Path(repo_path).expanduser().resolve()
                 try:
-                    stored_path = Path(note_repo).expanduser().resolve()
+                    stored_path = Path(note_repo.replace("\\", "/")).expanduser().resolve()
                 except OSError:
-                    stored_path = Path(note_repo)
+                    stored_path = Path(note_repo.replace("\\", "/"))
                 if requested_path != stored_path and stored_path not in requested_path.parents:
                     continue
             return {

@@ -1950,7 +1950,7 @@ tags:
         self.assertTrue((ROOT / ".claude" / "commands" / "wiki.md").exists())
 
     def test_root_opencode_project_kb_skill_exists(self):
-        self.assertTrue((ROOT / "vault-template" / ".opencode" / "skill" / "project-kb" / "SKILL.md").exists())
+        self.assertTrue((ROOT / ".opencode" / "skill" / "project-kb" / "SKILL.md").exists())
 
     def test_root_codex_project_kb_skill_exists(self):
         self.assertTrue((ROOT / ".codex" / "skills" / "project-kb" / "SKILL.md").exists())
@@ -3177,6 +3177,7 @@ tags:
             self.assertEqual(payload["gate"], "user_journey_gate")
             self.assertEqual(payload["record"]["path"], "Projects/Demo/.vault-meta/release/repo-wide/user-journeys.json")
 
+    @unittest.skipUnless(sys.platform == "win32", "Windows support matrix status is only verified on Windows runners")
     def test_release_support_matrix_smoke_records_repo_wide_evidence(self):
         with tempfile.TemporaryDirectory() as tmp:
             workspace = Path(tmp)
