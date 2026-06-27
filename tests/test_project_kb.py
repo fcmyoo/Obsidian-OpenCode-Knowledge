@@ -1950,7 +1950,7 @@ tags:
         self.assertTrue((ROOT / ".claude" / "commands" / "wiki.md").exists())
 
     def test_root_opencode_project_kb_skill_exists(self):
-        self.assertTrue((ROOT / ".opencode" / "skill" / "project-kb" / "SKILL.md").exists())
+        self.assertTrue((ROOT / "vault-template" / ".opencode" / "skill" / "project-kb" / "SKILL.md").exists())
 
     def test_root_codex_project_kb_skill_exists(self):
         self.assertTrue((ROOT / ".codex" / "skills" / "project-kb" / "SKILL.md").exists())
