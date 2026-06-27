@@ -3339,11 +3339,14 @@ Record the decision after it is confirmed.
             rel = Path(target.name)
         return "__".join(rel.parts)
 
+    def _resolve_path(self, path: Path) -> Path:
+        return Path(os.path.realpath(path))
+
     def project_root_for_path(self, target: Path) -> Path:
-        rel = target.resolve().relative_to(self.vault)
+        rel = self._resolve_path(target).relative_to(self._resolve_path(self.vault))
         if len(rel.parts) < 2 or rel.parts[0] != "Projects":
             raise ValueError("path must be inside a project root")
-        return self.vault / "Projects" / rel.parts[1]
+        return self._resolve_path(self.vault) / "Projects" / rel.parts[1]
 
     def audit(self, project: str, actor: str, operation: str, path: Path, commit: str | None) -> None:
         audit_path = self.project_root(project) / ".vault-meta" / "audit.jsonl"
@@ -3363,11 +3366,13 @@ Record the decision after it is confirmed.
         project_root = self.project_root_for_path(target)
         pilot_dir = project_root / ".vault-meta" / "pilot"
         pilot_dir.mkdir(parents=True, exist_ok=True)
+        resolved_target = self._resolve_path(target)
+        resolved_vault = self._resolve_path(self.vault)
         event = {
             "recorded_at": now_iso(),
             "event_type": "lock_contention",
             "lock_contention_count": 1,
-            "path": normalize_rel(target.relative_to(self.vault)),
+            "path": normalize_rel(resolved_target.relative_to(resolved_vault)),
         }
         with (pilot_dir / "events.jsonl").open("a", encoding="utf-8") as handle:
             handle.write(json.dumps(event, ensure_ascii=False) + "\n")
