@@ -41,3 +41,5 @@ AI 会自动：
 ```text
 lint wiki
 ```
+
+遇到问题可查看 [TROUBLESHOOTING.md](TROUBLESHOOTING.md)。
