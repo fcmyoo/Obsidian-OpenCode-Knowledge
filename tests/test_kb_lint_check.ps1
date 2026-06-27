@@ -52,7 +52,7 @@ source: local
 created: 2026-01-01
 domain: wiki
 ---
-- [Topic](../../wiki/Topic.md)
+- [Topic](Topic.md)
 '@
 Set-Content -Path (Join-Path $vault 'wiki\Topic.md') -Value @'
 ---
@@ -85,7 +85,7 @@ source: local
 created: 2026-01-01
 domain: wiki
 ---
-- [Topic](../../wiki/Topic.md)
+- [Topic](Topic.md)
 '@
 Set-Content -Path (Join-Path $vault 'wiki\Topic.md') -Value @'
 ---
@@ -95,7 +95,7 @@ created: 2026-01-01
 domain: wiki
 ---
 # Topic
-[Bad](../../wiki/Missing.md)
+[Bad](Missing.md)
 '@
 Set-Content -Path (Join-Path $vault 'wiki\log.md') -Value '' -Encoding utf8
 $r = Invoke-Lint -VaultPath $vault
