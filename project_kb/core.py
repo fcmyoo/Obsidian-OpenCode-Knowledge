@@ -258,7 +258,7 @@ def tokenize(text: str) -> list[str]:
 class ProjectKb:
     def __init__(self, vault: Path | str | None = None):
         vault_path = vault or os.environ.get("PROJECT_KB_VAULT") or self.discover_repo_local_vault() or Path.cwd() / "vault"
-        self.vault = Path(vault_path).expanduser().resolve()
+        self.vault = Path(os.path.realpath(vault_path))
 
     def discover_repo_local_vault(self) -> str | None:
         current = Path.cwd().resolve()
