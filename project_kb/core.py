@@ -2960,7 +2960,7 @@ class ProjectKb:
     def read_note(self, path: Path) -> Note:
         raw = path.read_text(encoding="utf-8")
         frontmatter, body = parse_frontmatter(raw)
-        rel = normalize_rel(path.relative_to(self.vault))
+        rel = normalize_rel(self._resolve_path(path).relative_to(self._resolve_path(self.vault)))
         return Note(path=path, rel_path=rel, frontmatter=frontmatter, body=body, raw=raw)
 
     def find_wikilinks(self, body: str) -> list[str]:
