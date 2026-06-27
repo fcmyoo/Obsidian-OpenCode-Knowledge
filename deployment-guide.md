@@ -84,21 +84,19 @@ tags:
 
 1. 打开 **终端**（在「启动台」→「其他」里找到「终端」，或按 `⌘ 空格` 搜索「Terminal」）
 
-2. 把部署包（`deploy` 文件夹）拖到桌面
-
-3. 在终端里输入以下命令，然后按回车：
+2. 克隆或解压本仓库后，在终端进入仓库根目录：
 
 ```bash
-cd ~/Desktop/deploy && bash setup.sh
+cd 本仓库根目录 && bash setup.sh
 ```
 
-4. 按照脚本提示操作：
+3. 按照脚本提示操作：
    - **选择知识库位置**：直接回车 = 放在桌面
    - **安装 Node.js**：如果提示没装，选 1 自动安装
    - **安装 OpenCode**：自动进行
    - **选择 AI 服务**：输入数字选择你的 AI 服务提供商（1-6），然后粘贴 API Key
 
-5. 看到 **🎉 部署完成！** 就表示成功了
+4. 看到 **🎉 部署完成！** 就表示成功了
 
 ---
 
@@ -146,7 +144,7 @@ cd ~/Desktop/deploy && bash setup.sh
 仓库里还附带了一个快速诊断脚本：
 
 ```bash
-cd ~/Desktop/deploy && bash scripts/opencode-obsidian-doctor.sh --vault "$HOME/Desktop/我的知识库"
+bash scripts/opencode-obsidian-doctor.sh --vault "$HOME/Desktop/我的知识库"
 ```
 
 它会帮你检查：
@@ -236,19 +234,19 @@ open ~/.config/opencode/opencode.json
 1. 运行：
 
 ```bash
-cd ~/Desktop/deploy && bash scripts/opencode-obsidian-doctor.sh --vault "$HOME/Desktop/我的知识库"
+bash scripts/opencode-obsidian-doctor.sh --vault "$HOME/Desktop/我的知识库"
 ```
 
 2. 如果看到端口被占用，再运行：
 
 ```bash
-cd ~/Desktop/deploy && bash scripts/opencode-obsidian-doctor.sh --vault "$HOME/Desktop/我的知识库" --kill-port
+bash scripts/opencode-obsidian-doctor.sh --vault "$HOME/Desktop/我的知识库" --kill-port
 ```
 
 3. 如果想手动验证服务能不能启动，再运行：
 
 ```bash
-cd ~/Desktop/deploy && bash scripts/opencode-obsidian-doctor.sh --vault "$HOME/Desktop/我的知识库" --start-test
+bash scripts/opencode-obsidian-doctor.sh --vault "$HOME/Desktop/我的知识库" --start-test
 ```
 
 4. 仍然不行时，继续参考：

@@ -144,6 +144,39 @@ if ($frontMatterMissing -eq 0) {
     $exitCode = 1
 }
 
+Write-Section "Tag Convergence"
+$tagDuplicateThreshold = 2
+$tagCount = @{}
+foreach ($file in $wikiFiles) {
+    if ($file.Name -eq 'log.md') { continue }
+    $content = Get-Content -Path $file.FullName -Raw
+    $matches = [regex]::Matches($content, '(?m)^\s*tags:\s*\[(.*)\]')
+    foreach ($match in $matches) {
+        $tagText = $match.Groups[1].Value
+        $tags = $tagText -split ',' | ForEach-Object { $_.Trim().Trim('"') }
+        foreach ($tag in $tags) {
+            if ([string]::IsNullOrWhiteSpace($tag)) { continue }
+            $tagCount[$tag] = ($tagCount[$tag] ?? 0) + 1
+        }
+    }
+}
+$tagDuplicates = 0
+foreach ($tag in $tagCount.Keys) {
+    $count = $tagCount[$tag]
+    if ($count -gt $tagDuplicateThreshold) {
+        Write-WARN "tag appears in multiple files: $tag ($count)"
+        $tagDuplicates++
+    }
+}
+if ($tagDuplicates -eq 0) {
+    Write-OK "no excessive tag duplicates detected"
+    $issues += @{ check = "tag_duplicates"; status = "ok" }
+} else {
+    Write-ERR "excessive tag duplicates detected: $tagDuplicates"
+    $issues += @{ check = "tag_duplicates"; status = "error"; count = $tagDuplicates }
+    $exitCode = 1
+}
+
 if ($JsonMode -eq '1') {
     $report = @{
         vault = $VaultPath

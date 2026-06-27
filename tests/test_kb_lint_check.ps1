@@ -103,5 +103,59 @@ if ($r.ExitCode -eq 0) { throw "broken link should fail`n$($r.Output)" }
 Assert-Contains -Result $r -Needle 'broken links detected' -Message 'broken link'
 Write-Host "[OK] broken link is reported" -ForegroundColor Green
 
+# Test 4: frontmatter missing fields is reported
+$vault = New-TestVault -Name 'frontmatter'
+Set-Content -Path (Join-Path $vault 'wiki\index.md') -Value @'
+---
+title: Index
+source: local
+created: 2026-01-01
+domain: wiki
+---
+'@
+Set-Content -Path (Join-Path $vault 'wiki\Topic.md') -Value '# Topic' -Encoding utf8
+Set-Content -Path (Join-Path $vault 'wiki\log.md') -Value '' -Encoding utf8
+$r = Invoke-Lint -VaultPath $vault
+if ($r.ExitCode -eq 0) { throw "missing frontmatter should fail`n$($r.Output)" }
+Assert-Contains -Result $r -Needle 'frontmatter missing fields detected' -Message 'frontmatter'
+Write-Host "[OK] frontmatter missing fields is reported" -ForegroundColor Green
+
+# Test 5: excessive tag duplicates is reported
+$vault = New-TestVault -Name 'tags'
+Set-Content -Path (Join-Path $vault 'wiki\index.md') -Value @'
+---
+title: Index
+source: local
+created: 2026-01-01
+domain: wiki
+tags: [ai]
+---
+'@
+Set-Content -Path (Join-Path $vault 'wiki\Topic.md') -Value @'
+---
+title: Topic
+source: local
+created: 2026-01-01
+domain: wiki
+tags: [ai]
+---
+# Topic
+'@
+Set-Content -Path (Join-Path $vault 'wiki\Related.md') -Value @'
+---
+title: Related
+source: local
+created: 2026-01-01
+domain: wiki
+tags: [ai]
+---
+# Related
+'@
+Set-Content -Path (Join-Path $vault 'wiki\log.md') -Value '' -Encoding utf8
+$r = Invoke-Lint -VaultPath $vault
+if ($r.ExitCode -eq 0) { throw "tag duplicates should fail`n$($r.Output)" }
+Assert-Contains -Result $r -Needle 'excessive tag duplicates detected' -Message 'tag duplicates'
+Write-Host "[OK] excessive tag duplicates is reported" -ForegroundColor Green
+
 Write-Host "`nAll PowerShell lint tests passed." -ForegroundColor Green
 exit 0
