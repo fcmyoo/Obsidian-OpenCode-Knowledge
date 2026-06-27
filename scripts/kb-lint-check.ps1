@@ -12,6 +12,9 @@ if (-not $VaultPath) {
 }
 
 $ErrorActionPreference = "Continue"
+[Console]::OutputEncoding = [System.Text.Encoding]::UTF8
+$OutputEncoding = [System.Text.Encoding]::UTF8
+$PSDefaultParameterValues['*:Encoding'] = 'utf8'
 
 function Write-OK { param($msg) Write-Output "[OK] $msg" }
 function Write-WARN { param($msg) Write-Output "[WARN] $msg" }
