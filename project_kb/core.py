@@ -3334,9 +3334,9 @@ Record the decision after it is confirmed.
     def lock_name(self, target: Path) -> str:
         project_root = self.project_root_for_path(target)
         try:
-            rel = target.relative_to(project_root)
+            rel = self._resolve_path(target).relative_to(project_root)
         except ValueError:
-            rel = Path(target.name)
+            rel = Path(self._resolve_path(target).name)
         return "__".join(rel.parts)
 
     def _resolve_path(self, path: Path) -> Path:
