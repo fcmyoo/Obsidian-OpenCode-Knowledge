@@ -19,7 +19,7 @@
 | Feature | Description |
 |---------|-------------|
 | 📥 **Auto Ingest** | Drop articles, PDFs, screenshots to AI, automatically organized into structured notes |
-| 📱 **Social Media Collection** | Xiaohongshu, Douyin, Twitter, Weibo and more — auto-classify, analyze, and digest into knowledge (powered by [OpenCLI](https://github.com/jackwener/OpenCLI)) |
+| 📱 **Social Media Collection** | Xiaohongshu, Douyin, Twitter, Weibo and more — auto-classify, analyze, and digest into knowledge (powered by [OpenCLI](https://github.com/jackwener/opencli)) |
 | 🔍 **Smart Query** | Chat with AI: "Have I written about XX before?" |
 | 🏥 **Regular Health Check** | AI automatically checks knowledge base health, finds broken links, duplicates, orphaned pages |
 | 🔒 **Fully Local** | All data stays on your computer, no cloud upload |
@@ -193,7 +193,7 @@ AI will automatically:
 - Assess credibility (sponsored content detection, evidence quality)
 - Archive raw content to `raw/social/<domain>/`
 
-> OpenCLI supports automatic content scraping via Chrome browser, reusing your login sessions. See [OpenCLI project](https://github.com/jackwener/OpenCLI).
+> OpenCLI supports automatic content scraping via Chrome browser, reusing your login sessions. See [OpenCLI project](https://github.com/jackwener/opencli).
 - Digest and merge or create wiki articles (removing social media slang, keeping useful info)
 - Auto-merge multiple posts on the same topic (e.g., multiple café reviews → city café guide)
 - Update global index and operation log
@@ -385,7 +385,7 @@ Thanks to these projects and teams for their support:
 
 - **[OpenCode](https://opencode.ai)** — Enables AI assistants to run locally in the terminal
 - **[Obsidian](https://obsidian.md)** — Excellent local note-taking software
-- **[OpenCLI](https://github.com/jackwener/OpenCLI)** — Make any website your CLI, 87+ site adapters
+- **[OpenCLI](https://github.com/jackwener/opencli)** — Make any website your CLI, 87+ site adapters
 - **[Zhipu GLM](https://open.bigmodel.cn)** / **[Anthropic](https://anthropic.com)** / **[OpenAI](https://openai.com)** / **[Google Gemini](https://ai.google)** / **[OpenRouter](https://openrouter.ai)** / **[DeepSeek](https://deepseek.com)** — Multiple AI service providers supported
 - **[helloianneo/obsidian-ai-second-brain](https://github.com/helloianneo/obsidian-ai-second-brain)** — Inspiration for the knowledge base architecture
 
