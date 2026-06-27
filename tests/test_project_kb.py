@@ -81,6 +81,7 @@ class ProjectKbCliTests(unittest.TestCase):
             self.assertIn("obsidian_local_rest_api", transport_meta["evidence"])
             self.assertIn("project_kb_mcp", transport_meta["evidence"])
 
+    @unittest.skipUnless(os.name == "nt", "Windows backslash repo path resolution is only applicable on Windows")
     def test_project_find_resolves_windows_backslash_repo_paths_from_frontmatter(self):
         with tempfile.TemporaryDirectory() as tmp:
             workspace = Path(tmp)
@@ -3177,7 +3178,7 @@ tags:
             self.assertEqual(payload["gate"], "user_journey_gate")
             self.assertEqual(payload["record"]["path"], "Projects/Demo/.vault-meta/release/repo-wide/user-journeys.json")
 
-    @unittest.skipUnless(sys.platform == "win32", "Windows support matrix status is only verified on Windows runners")
+    @unittest.skipUnless(os.name == "nt", "Windows support matrix status is only verified on Windows runners")
     def test_release_support_matrix_smoke_records_repo_wide_evidence(self):
         with tempfile.TemporaryDirectory() as tmp:
             workspace = Path(tmp)
