@@ -41,7 +41,7 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: 20
+          node-version: 22
       - name: Run installer dry-run
         run: bash scripts/installer/install.sh --vault "${{ github.workspace }}/tmp-install-smoke" --provider deepseek --api-key "test-key" --skip-plugin
       - name: Verify vault template copied
