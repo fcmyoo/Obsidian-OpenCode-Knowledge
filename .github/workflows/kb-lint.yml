@@ -17,13 +17,13 @@ jobs:
   kb-lint-bash:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Run KB lint script
         run: |
           set -o pipefail
           bash scripts/kb-lint-check.sh "$GITHUB_WORKSPACE/vault-template" | tee kb-lint-report.txt
       - name: Upload KB lint report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: kb-lint-report
           path: kb-lint-report.txt
@@ -35,12 +35,12 @@ jobs:
     runs-on: windows-latest
     continue-on-error: true
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Run KB lint PowerShell script
         shell: pwsh
         run: powershell -ExecutionPolicy Bypass -File scripts/kb-lint-check.ps1 -VaultPath "$env:GITHUB_WORKSPACE/vault-template" -JsonMode 1 | Tee-Object -FilePath kb-lint-report-powershell.json
       - name: Upload KB lint PowerShell report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v6
         with:
           name: kb-lint-report-powershell
           path: kb-lint-report-powershell.json
